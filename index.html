@@ -254,25 +254,17 @@ function updateEstimation() {
 // --- MISE À JOUR LIVE DU COURS DE L'OR ---
 async function fetchLivePrice() {
     try {
-        // 1. Cours de l'or en USD/once via metals.live (endpoint correct : /v1/spot sans suffixe)
-        const goldRes = await fetch('https://api.metals.live/v1/spot');
-        if (!goldRes.ok) throw new Error('metals.live indisponible');
-        const goldData = await goldRes.json();
+        // API Fawaz Ahmed via jsDelivr CDN : CORS natif, prix XAU directement en EUR
+        // 1 XAU = 1 once troy d'or (31.1035g)
+        const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/xau.json');
+        if (!res.ok) throw new Error('API indisponible');
+        const data = await res.json();
 
-        // La réponse est un tableau : [{ "gold": 3240.5, "silver": ..., ... }]
-        const priceUSD = Array.isArray(goldData) ? goldData[0]?.gold : goldData?.gold;
-        if (!priceUSD || priceUSD <= 0) throw new Error('Prix invalide');
+        const onceEUR = data?.xau?.eur;
+        if (!onceEUR || onceEUR <= 0) throw new Error('Valeur invalide');
 
-        // 2. Taux de change USD -> EUR via Frankfurter (pas de clé API, CORS ok)
-        const rateRes = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR');
-        if (!rateRes.ok) throw new Error('Frankfurter indisponible');
-        const rateData = await rateRes.json();
-
-        const eurRate = rateData?.rates?.EUR;
-        if (!eurRate || eurRate <= 0) throw new Error('Taux invalide');
-
-        // 3. Conversion once troy (31.1035g) -> gramme -> EUR
-        const newPrice = (priceUSD / 31.1035) * eurRate;
+        // Conversion once troy -> gramme
+        const newPrice = onceEUR / 31.1035;
 
         if (newPrice > 50) {
             goldPrice24k = newPrice;
