@@ -78,10 +78,10 @@
     <div class="header">
         <div class="header-content">
             <div class="logo-container">
-                <svg class="logo-svg" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <svg class="logo-svg" viewBox="0 0 40 40">
                     <rect width="40" height="40" rx="8" fill="#FF9500"/>
                     <rect x="2" y="2" width="36" height="36" rx="6" fill="white"/>
-                    <text x="20" y="28" font-size="18" font-weight="800" font-family="Arial, sans-serif" text-anchor="middle" fill="#FF9500" letter-spacing="-1">HC</text>
+                    <text x="20" y="28" font-size="18" font-weight="800" font-family="Arial" text-anchor="middle" fill="#FF9500">HC</text>
                 </svg>
                 <div class="logo-text">
                     <div class="logo-main">Happy Cash</div>
@@ -90,7 +90,7 @@
             </div>
             <div class="course-mini">
                 <div class="course-mini-label">Cours OR (24K)</div>
-                <div class="course-mini-value" id="headerPrice">...€</div>
+                <div class="course-mini-value" id="headerPrice">128.59€</div>
             </div>
         </div>
     </div>
@@ -110,9 +110,9 @@
             <div class="form-group">
                 <label class="form-label">Caratage de l'or</label>
                 <div class="carat-buttons">
-                    <button class="carat-btn active" data-carat="18" onclick="selectCarat(18, this)">18K</button>
-                    <button class="carat-btn" data-carat="22" onclick="selectCarat(22, this)">22K</button>
-                    <button class="carat-btn" data-carat="9" onclick="selectCarat(9, this)">9K</button>
+                    <button class="carat-btn active" onclick="selectCarat(18, this)">18K</button>
+                    <button class="carat-btn" onclick="selectCarat(22, this)">22K</button>
+                    <button class="carat-btn" onclick="selectCarat(9, this)">9K</button>
                 </div>
             </div>
 
@@ -123,27 +123,27 @@
                         <input type="checkbox" id="poincon" checked onchange="updateEstimation()">
                         <div class="checkbox-text">
                             <div class="checkbox-text-main">Or poinçonné</div>
-                            <div class="checkbox-text-sub">Estampage garantissant la pureté</div>
+                            <div class="checkbox-text-sub">Estampage de garantie</div>
                         </div>
                     </label>
                 </div>
                 
                 <div style="margin-top: 14px;">
-                    <label class="form-label" style="margin-bottom: 10px;">Condition physique</label>
+                    <label class="form-label">Condition physique</label>
                     <div class="state-buttons">
-                        <button class="state-btn active" data-state="0" onclick="selectState(0, this)">
+                        <button class="state-btn active" onclick="selectState(0, this)">
                             <span class="state-btn-label">Intact</span>
                             <span class="state-btn-hint">Pas de dommage</span>
                         </button>
-                        <button class="state-btn" data-state="-2" onclick="selectState(-2, this)">
+                        <button class="state-btn" onclick="selectState(-2, this)">
                             <span class="state-btn-label">Léger</span>
                             <span class="state-btn-hint">Petits défauts</span>
                         </button>
-                        <button class="state-btn" data-state="-3" onclick="selectState(-3, this)">
+                        <button class="state-btn" onclick="selectState(-3, this)">
                             <span class="state-btn-label">Endommagé</span>
-                            <span class="state-btn-hint">Cassé ou plié</span>
+                            <span class="state-btn-hint">Cassé / Plié</span>
                         </button>
-                        <button class="state-btn" data-state="-5" onclick="selectState(-5, this)">
+                        <button class="state-btn" onclick="selectState(-5, this)">
                             <span class="state-btn-label">Très abîmé</span>
                             <span class="state-btn-hint">Refonte nécessaire</span>
                         </button>
@@ -153,8 +153,8 @@
                 <label class="checkbox-item" style="margin-top: 14px;">
                     <input type="checkbox" id="stones" onchange="updateEstimation()">
                     <div class="checkbox-text">
-                        <div class="checkbox-text-main">Contient des pierres précieuses</div>
-                        <div class="checkbox-text-sub">Diamants, rubis, saphirs...</div>
+                        <div class="checkbox-text-main">Pierres précieuses</div>
+                        <div class="checkbox-text-sub">Diamants, rubis, etc.</div>
                     </div>
                 </label>
             </div>
@@ -162,7 +162,7 @@
             <div class="form-group">
                 <label class="form-label">Poids</label>
                 <div class="input-weight-group">
-                    <input type="number" id="weight" placeholder="Ex: 5.2" min="0" step="0.1" oninput="updateEstimation()">
+                    <input type="number" id="weight" placeholder="0.0" min="0" step="0.1" oninput="updateEstimation()">
                     <select id="unit" onchange="updateEstimation()">
                         <option value="g">Grammes</option>
                         <option value="dg">Décigrammes</option>
@@ -171,7 +171,7 @@
             </div>
 
             <div class="adjustment-hint" id="adjustmentHint" style="display: none;">
-                Ajustements appliqués : <span id="adjustmentText"></span>
+                Ajustements : <span id="adjustmentText"></span>
             </div>
         </div>
 
@@ -184,66 +184,24 @@
 
         <button class="cta-button" onclick="goToShop()">Venir en magasin</button>
         <a href="tel:+33159301511" class="secondary-button">Appeler le magasin</a>
-        
-        <div class="features" style="margin-top: 20px;">
-            <div class="features-title">Pourquoi Happy Cash ?</div>
-            <div class="feature-item">
-                <div class="feature-icon">✓</div>
-                <div>Estimation gratuite sans engagement</div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">✓</div>
-                <div>Paiement immédiat et sécurisé</div>
-            </div>
-        </div>
     </div>
 
     <div class="footer">
         <div class="footer-title">Happy Cash Épinay-sur-Seine</div>
-        <div style="font-size: 13px; color: #666; margin-bottom: 15px;">Centre Commercial E.Leclerc L'Ilot</div>
-        <a href="https://share.google/W2dojqoBqSOGWY0m9" target="_blank" class="cta-button" style="display: inline-block; width: auto; padding: 12px 24px;">Voir la localisation</a>
+        <div style="font-size: 12px; color: #999; margin-top: 10px;">Centre Commercial E.Leclerc L'Ilot</div>
     </div>
 </div>
 
 <script>
-// --- CONFIGURATION ---
-let goldPrice24k = 78.50; // Valeur de repli au cas où l'API échoue
+// --- DONNÉES DE DÉPART (CORRIGÉES) ---
+let goldPrice24k = 128.59; 
 let selectedCarat = 18;
 let selectedState = 0;
 
-// --- RECUPERATION DU COURS EN DIRECT ---
-async function fetchGoldPrice() {
-    try {
-        // 1. Récupération du prix de l'or en USD/Once
-        const goldRes = await fetch('https://api.metals.live/v1/spot/gold');
-        const goldData = await goldRes.json();
-        
-        // 2. Récupération du taux de change USD vers EUR
-        const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
-        const rateData = await rateRes.json();
-        
-        let priceUSD = 0;
-        if (Array.isArray(goldData)) {
-            priceUSD = goldData[0].gold;
-        } else {
-            priceUSD = goldData.gold;
-        }
+// Mise à jour de l'affichage initial
+document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€';
 
-        const eurUsdRate = rateData.rates.EUR; 
-
-        if (priceUSD > 0 && eurUsdRate > 0) {
-            // Calcul : (Prix USD / 31.1035) * Taux EUR
-            goldPrice24k = (priceUSD / 31.1035) * eurUsdRate;
-            document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
-            updateEstimation(); // On relance le calcul si l'utilisateur a déjà saisi un poids
-        }
-    } catch (error) {
-        console.error("Erreur API :", error);
-        document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
-    }
-}
-
-// --- LOGIQUE INTERACTIVE ---
+// --- LOGIQUE DE CALCUL ---
 function selectCarat(carat, element) {
     selectedCarat = carat;
     document.querySelectorAll('.carat-btn').forEach(btn => btn.classList.remove('active'));
@@ -264,8 +222,7 @@ function updateEstimation() {
     const isPoincon = document.getElementById('poincon').checked;
     const hasStones = document.getElementById('stones').checked;
     
-    // Conversion en grammes
-    let weightGrams = unit === 'g' ? weightVal : weightVal * 0.1;
+    let weightGrams = (unit === 'g') ? weightVal : weightVal * 0.1;
     
     if (weightGrams <= 0) {
         document.getElementById('resultCard').classList.remove('show');
@@ -273,11 +230,10 @@ function updateEstimation() {
         return;
     }
 
-    // 1. Valeur intrinsèque (Prix du gramme pur * pureté)
-    const puretyFactor = selectedCarat / 24;
-    const baseGramValue = goldPrice24k * puretyFactor;
+    // 1. Valeur du gramme pur -> Valeur du gramme selon caratage
+    const gramValue = goldPrice24k * (selectedCarat / 24);
     
-    // 2. Marge Happy Cash (21.9% si poinçon, 25% sans poinçon)
+    // 2. Marge magasin (21.9% si poinçonné, 25% sinon)
     const margin = isPoincon ? 0.219 : 0.25; 
     
     // 3. Ajustements (État et Pierres)
@@ -290,16 +246,16 @@ function updateEstimation() {
     }
     
     if (hasStones) {
-        totalAdjustmentPercent -= 5; // On retire 5% pour le poids estimé des pierres
+        totalAdjustmentPercent -= 5; // Marge de sécurité pour le poids des pierres
         adjustments.push("Déduction pierres");
     }
 
-    const adjustmentMultiplier = 1 + (totalAdjustmentPercent / 100);
+    const multiplier = 1 + (totalAdjustmentPercent / 100);
     
-    // FORMULE FINALE : Valeur * (1 - marge) * Ajustements
-    const finalPrice = baseGramValue * weightGrams * (1 - margin) * adjustmentMultiplier;
+    // FORMULE : [Valeur Marché] * [Poids] * [1 - Marge] * [Ajustement état]
+    const finalPrice = gramValue * weightGrams * (1 - margin) * multiplier;
 
-    // Affichage des résultats
+    // Affichage
     document.getElementById('resultPrice').textContent = finalPrice.toFixed(2) + '€';
     document.getElementById('resultDesc').textContent = `${weightGrams.toFixed(2)}g d'or ${selectedCarat}K ${isPoincon ? 'poinçonné' : 'non poinçonné'}`;
     
@@ -313,14 +269,43 @@ function updateEstimation() {
     document.getElementById('resultCard').classList.add('show');
 }
 
+// --- TENTATIVE DE MISE À JOUR LIVE (VIA API) ---
+async function fetchLivePrice() {
+    try {
+        // On récupère l'once en USD
+        const goldRes = await fetch('https://api.metals.live/v1/spot/gold');
+        const goldData = await goldRes.json();
+        
+        // On récupère le taux de change USD -> EUR
+        const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
+        const rateData = await rateRes.json();
+        
+        let priceUSD = Array.isArray(goldData) ? goldData[0].gold : goldData.gold;
+        let eurRate = rateData.rates.EUR;
+
+        if (priceUSD > 0 && eurRate > 0) {
+            // Conversion Once -> Gramme -> EUR
+            const newPrice = (priceUSD / 31.1035) * eurRate;
+            
+            // On ne met à jour que si le prix est "cohérent" (> 50€) pour éviter les bugs d'API
+            if (newPrice > 50) {
+                goldPrice24k = newPrice;
+                document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€';
+                updateEstimation();
+            }
+        }
+    } catch (e) {
+        console.log("Utilisation du cours manuel (128.59€)");
+    }
+}
+
 function goToShop() {
     window.open('https://share.google/W2dojqoBqSOGWY0m9', '_blank');
 }
 
-// --- INITIALISATION ---
-fetchGoldPrice();
-setInterval(fetchGoldPrice, 300000); // Mise à jour automatique toutes les 5 minutes
-
+// Lancement
+fetchLivePrice();
+setInterval(fetchLivePrice, 120000); // Tente de se mettre à jour toutes les 2 min
 </script>
 
 </body>
