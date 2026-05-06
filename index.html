@@ -233,47 +233,81 @@ function updateEstimation() {
     }
 
     // CALCUL DYNAMIQUE BASÉ SUR LE COURS LIVE
-    // On définit la valeur de l'or selon son caratage (ex: 18/24 pour du 18K)
+   // On définit des valeurs par défaut au cas où les API mettraient du temps à répondre
+let goldPrice24k = 72.50; 
+let selectedCarat = 18;
+let selectedState = 0;
+
+async function fetchGoldPrice() {
+    try {
+        // 1. On récupère le cours de l'or (en USD par once)
+        const goldRes = await fetch('https://api.metals.live/v1/spot/gold');
+        const goldData = await goldRes.json();
+        
+        // 2. On récupère le taux de change réel EUR/USD
+        const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
+        const rateData = await rateRes.json();
+        
+        let priceUSD = 0;
+        if (Array.isArray(goldData)) {
+            priceUSD = goldData[0].gold;
+        } else {
+            priceUSD = goldData.gold;
+        }
+
+        const eurUsdRate = rateData.rates.EUR; // Taux de change actuel (ex: 0.92)
+
+        if (priceUSD > 0 && eurUsdRate > 0) {
+            // Conversion : (Prix USD / 31.1035) * Taux EUR
+            // Exemple : (2300$ / 31.1035) * 0.92 = 68.03€ le gramme pur
+            goldPrice24k = (priceUSD / 31.1035) * eurUsdRate;
+            
+            document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
+            updateEstimation();
+        }
+    } catch (error) {
+        console.error("Erreur de mise à jour du cours :", error);
+        // On laisse la valeur par défaut ou la dernière valeur connue
+        document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
+    }
+}
+
+// Les fonctions selectCarat, selectState et updateEstimation restent identiques 
+// mais vérifiez bien la formule dans updateEstimation :
+function updateEstimation() {
+    const weight = parseFloat(document.getElementById('weight').value) || 0;
+    const unit = document.getElementById('unit').value;
+    const isPoincon = document.getElementById('poincon').checked;
+    const hasStones = document.getElementById('stones').checked;
+    
+    let weightGrams = unit === 'g' ? weight : weight * 0.1;
+    
+    if (weightGrams <= 0) {
+        document.getElementById('resultCard').classList.remove('show');
+        return;
+    }
+
+    // PRIX DU GRAMME SELON LE CARATAGE (Basé sur le 24K live)
     const currentGramValue = goldPrice24k * (selectedCarat / 24);
     
-    // Marges Happy Cash
+    // MARGE MAGASIN (21.9% si poinçon, 25% sinon)
     const margin = isPoincon ? 0.219 : 0.25; 
     
     let totalAdjustmentPercent = 0;
-    let adjustments = [];
-
-    if (selectedState !== 0) {
-        totalAdjustmentPercent += selectedState;
-        adjustments.push("État");
-    }
-    
-    if (hasStones) {
-        totalAdjustmentPercent -= 5; // On retire 5% de marge de sécurité pour le poids des pierres
-        adjustments.push("Déduction pierres");
-    }
+    if (selectedState !== 0) totalAdjustmentPercent += selectedState;
+    if (hasStones) totalAdjustmentPercent -= 5; // Marge de sécurité pierres
 
     const adjustmentMultiplier = 1 + (totalAdjustmentPercent / 100);
+    
+    // FORMULE FINALE
     const finalPrice = currentGramValue * weightGrams * (1 - margin) * adjustmentMultiplier;
 
-    // Affichage
     document.getElementById('resultPrice').textContent = finalPrice.toFixed(2) + '€';
     document.getElementById('resultDesc').textContent = `${weightGrams.toFixed(2)}g d'or ${selectedCarat}K ${isPoincon ? 'poinçonné' : ''}`;
-    
-    if (adjustments.length > 0) {
-        document.getElementById('adjustmentText').textContent = adjustments.join(', ');
-        document.getElementById('adjustmentHint').style.display = 'block';
-    } else {
-        document.getElementById('adjustmentHint').style.display = 'none';
-    }
-    
     document.getElementById('resultCard').classList.add('show');
-}
-
-function goToShop() {
-    window.open('https://share.google/W2dojqoBqSOGWY0m9', '_blank');
 }
 
 // Initialisation
 fetchGoldPrice();
-setInterval(fetchGoldPrice, 120000); // Mise à jour toutes les 2 minutes
+setInterval(fetchGoldPrice, 300000); // Mise à jour toutes les 5 minutes
 </script>
