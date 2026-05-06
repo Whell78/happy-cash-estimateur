@@ -16,7 +16,7 @@
         .logo-main { font-size: 18px; font-weight: 800; color: #003D7A; line-height: 1; letter-spacing: -0.3px; }
         .logo-badge { font-size: 9px; color: #FF9500; letter-spacing: 1.2px; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
         .course-mini { text-align: right; font-size: 11px; }
-        .course-mini-label { color: #999; display: block; margin-bottom: 2px; }
+        .course-mini-label { color: #999; display block; margin-bottom: 2px; }
         .course-mini-value { font-size: 16px; font-weight: 700; color: #FF9500; }
         .hero { background: linear-gradient(135deg, #003D7A 0%, #00254a 100%); padding: 60px 16px 40px; text-align: center; color: white; }
         .hero-content { max-width: 500px; margin: 0 auto; }
@@ -58,16 +58,6 @@
         .cta-button { display: block; width: 100%; padding: 16px; background: #FF9500; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: all 0.2s; letter-spacing: 0.3px; text-transform: uppercase; }
         .cta-button:hover { background: #E68600; transform: translateY(-2px); }
         .secondary-button { display: block; width: 100%; padding: 14px; background: white; color: #003D7A; border: 2px solid #003D7A; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.2s; }
-        .features { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; border: 1px solid #e8e6e1; }
-        .features-title { font-size: 14px; font-weight: 700; color: #003D7A; margin-bottom: 18px; text-transform: uppercase; }
-        .feature-item { display: flex; gap: 12px; margin-bottom: 14px; font-size: 13px; color: #666; line-height: 1.5; }
-        .feature-icon { flex-shrink: 0; width: 20px; height: 20px; background: #FF9500; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 800; margin-top: 2px; }
-        .process { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; border: 1px solid #e8e6e1; }
-        .process-title { font-size: 14px; font-weight: 700; color: #003D7A; margin-bottom: 18px; text-transform: uppercase; }
-        .steps { display: grid; gap: 12px; }
-        .step { display: flex; gap: 12px; }
-        .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #003D7A; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
-        .step-text { font-size: 13px; color: #666; line-height: 1.5; padding-top: 3px; }
         .footer { background: white; padding: 32px 16px; text-align: center; border-top: 1px solid #e8e6e1; margin-top: 40px; }
         .adjustment-hint { font-size: 11px; color: #FF9500; margin-top: 6px; padding: 8px; background: rgba(255, 149, 0, 0.08); border-radius: 8px; border-left: 3px solid #FF9500; padding-left: 10px; }
     </style>
@@ -193,12 +183,11 @@
 </div>
 
 <script>
-// --- DONNÉES DE DÉPART (CORRIGÉES) ---
+// --- DONNÉES DE DÉPART ---
 let goldPrice24k = 128.59; 
 let selectedCarat = 18;
 let selectedState = 0;
 
-// Mise à jour de l'affichage initial
 document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€';
 
 // --- LOGIQUE DE CALCUL ---
@@ -230,13 +219,9 @@ function updateEstimation() {
         return;
     }
 
-    // 1. Valeur du gramme pur -> Valeur du gramme selon caratage
     const gramValue = goldPrice24k * (selectedCarat / 24);
-    
-    // 2. Marge magasin (21.9% si poinçonné, 25% sinon)
     const margin = isPoincon ? 0.219 : 0.25; 
     
-    // 3. Ajustements (État et Pierres)
     let totalAdjustmentPercent = 0;
     let adjustments = [];
 
@@ -246,16 +231,13 @@ function updateEstimation() {
     }
     
     if (hasStones) {
-        totalAdjustmentPercent -= 5; // Marge de sécurité pour le poids des pierres
+        totalAdjustmentPercent -= 5;
         adjustments.push("Déduction pierres");
     }
 
     const multiplier = 1 + (totalAdjustmentPercent / 100);
-    
-    // FORMULE : [Valeur Marché] * [Poids] * [1 - Marge] * [Ajustement état]
     const finalPrice = gramValue * weightGrams * (1 - margin) * multiplier;
 
-    // Affichage
     document.getElementById('resultPrice').textContent = finalPrice.toFixed(2) + '€';
     document.getElementById('resultDesc').textContent = `${weightGrams.toFixed(2)}g d'or ${selectedCarat}K ${isPoincon ? 'poinçonné' : 'non poinçonné'}`;
     
@@ -269,33 +251,36 @@ function updateEstimation() {
     document.getElementById('resultCard').classList.add('show');
 }
 
-// --- TENTATIVE DE MISE À JOUR LIVE (VIA API) ---
+// --- MISE À JOUR LIVE DU COURS DE L'OR ---
 async function fetchLivePrice() {
     try {
-        // On récupère l'once en USD
-        const goldRes = await fetch('https://api.metals.live/v1/spot/gold');
+        // 1. Cours de l'or en USD/once via metals.live (endpoint correct : /v1/spot sans suffixe)
+        const goldRes = await fetch('https://api.metals.live/v1/spot');
+        if (!goldRes.ok) throw new Error('metals.live indisponible');
         const goldData = await goldRes.json();
-        
-        // On récupère le taux de change USD -> EUR
-        const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
-        const rateData = await rateRes.json();
-        
-        let priceUSD = Array.isArray(goldData) ? goldData[0].gold : goldData.gold;
-        let eurRate = rateData.rates.EUR;
 
-        if (priceUSD > 0 && eurRate > 0) {
-            // Conversion Once -> Gramme -> EUR
-            const newPrice = (priceUSD / 31.1035) * eurRate;
-            
-            // On ne met à jour que si le prix est "cohérent" (> 50€) pour éviter les bugs d'API
-            if (newPrice > 50) {
-                goldPrice24k = newPrice;
-                document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€';
-                updateEstimation();
-            }
+        // La réponse est un tableau : [{ "gold": 3240.5, "silver": ..., ... }]
+        const priceUSD = Array.isArray(goldData) ? goldData[0]?.gold : goldData?.gold;
+        if (!priceUSD || priceUSD <= 0) throw new Error('Prix invalide');
+
+        // 2. Taux de change USD -> EUR via Frankfurter (pas de clé API, CORS ok)
+        const rateRes = await fetch('https://api.frankfurter.app/latest?from=USD&to=EUR');
+        if (!rateRes.ok) throw new Error('Frankfurter indisponible');
+        const rateData = await rateRes.json();
+
+        const eurRate = rateData?.rates?.EUR;
+        if (!eurRate || eurRate <= 0) throw new Error('Taux invalide');
+
+        // 3. Conversion once troy (31.1035g) -> gramme -> EUR
+        const newPrice = (priceUSD / 31.1035) * eurRate;
+
+        if (newPrice > 50) {
+            goldPrice24k = newPrice;
+            document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€';
+            updateEstimation();
         }
     } catch (e) {
-        console.log("Utilisation du cours manuel (128.59€)");
+        console.log('Cours en direct indisponible, cours de repli utilisé :', goldPrice24k.toFixed(2) + '€', '—', e.message);
     }
 }
 
@@ -305,7 +290,7 @@ function goToShop() {
 
 // Lancement
 fetchLivePrice();
-setInterval(fetchLivePrice, 120000); // Tente de se mettre à jour toutes les 2 min
+setInterval(fetchLivePrice, 120000); // Mise à jour toutes les 2 min
 </script>
 
 </body>
