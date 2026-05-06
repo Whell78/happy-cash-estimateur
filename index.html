@@ -1,208 +1,249 @@
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-.page { background: #fafaf8; min-height: 100vh; }
-.header { background: white; border-bottom: 1px solid #e8e6e1; padding: 16px; position: sticky; top: 0; z-index: 20; }
-.header-content { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-.logo-container { display: flex; align-items: center; gap: 10px; }
-.logo-svg { width: 32px; height: 32px; flex-shrink: 0; }
-.logo-text { display: flex; flex-direction: column; }
-.logo-main { font-size: 18px; font-weight: 800; color: #003D7A; line-height: 1; letter-spacing: -0.3px; }
-.logo-badge { font-size: 9px; color: #FF9500; letter-spacing: 1.2px; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
-.course-mini { text-align: right; font-size: 11px; }
-.course-mini-label { color: #999; display: block; margin-bottom: 2px; }
-.course-mini-value { font-size: 16px; font-weight: 700; color: #FF9500; }
-.hero { background: linear-gradient(135deg, #003D7A 0%, #00254a 100%); padding: 60px 16px 40px; text-align: center; color: white; }
-.hero-content { max-width: 500px; margin: 0 auto; }
-.hero-badge { display: inline-block; background: rgba(255, 149, 0, 0.15); border: 1px solid rgba(255, 149, 0, 0.3); color: rgba(255, 213, 0, 0.9); padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 16px; }
-.hero h1 { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.5px; }
-.hero p { font-size: 15px; opacity: 0.9; font-weight: 300; letter-spacing: 0.2px; }
-.container { max-width: 480px; margin: 0 auto; padding: 28px 16px; }
-.card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 20px; border: 1px solid #e8e6e1; }
-.card-title { font-size: 16px; font-weight: 700; color: #003D7A; margin-bottom: 24px; letter-spacing: -0.3px; }
-.form-group { margin-bottom: 28px; }
-.form-label { display: block; font-size: 13px; font-weight: 700; color: #333; margin-bottom: 12px; text-transform: uppercase; }
-.carat-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.carat-btn { padding: 16px; border: 2px solid #ddd; background: white; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 700; color: #666; transition: all 0.3s ease; text-align: center; }
-.carat-btn.active { background: #FF9500; border-color: #FF9500; color: white; box-shadow: 0 4px 12px rgba(255, 149, 0, 0.2); }
-.checkbox-group { display: grid; gap: 10px; }
-.checkbox-item { display: flex; gap: 12px; padding: 14px; background: #f8f7f5; border-radius: 12px; cursor: pointer; }
-.checkbox-item input { width: 18px; height: 18px; accent-color: #FF9500; }
-.checkbox-text-main { font-size: 14px; font-weight: 600; color: #333; }
-.checkbox-text-sub { font-size: 12px; color: #999; }
-.state-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.state-btn { padding: 14px; border: 2px solid #ddd; background: white; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 600; color: #666; text-align: center; }
-.state-btn.active { background: #FF9500; border-color: #FF9500; color: white; }
-.state-btn-hint { font-size: 10px; opacity: 0.8; display: block; }
-.input-weight-group { display: grid; grid-template-columns: 1fr 90px; gap: 10px; }
-input[type="number"], select { padding: 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; }
-.result-card { background: linear-gradient(135deg, #FF9500 0%, #E68600 100%); border-radius: 16px; padding: 28px; margin-bottom: 20px; text-align: center; color: white; display: none; }
-.result-card.show { display: block; animation: slideUp 0.4s ease; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-.result-price { font-size: 52px; font-weight: 800; margin: 12px 0; }
-.cta-button { width: 100%; padding: 16px; background: #FF9500; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 12px; text-transform: uppercase; }
-.secondary-button { display: block; width: 100%; padding: 14px; background: white; color: #003D7A; border: 2px solid #003D7A; border-radius: 12px; font-size: 14px; font-weight: 700; text-decoration: none; text-align: center; }
-.features { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; border: 1px solid #e8e6e1; }
-.feature-item { display: flex; gap: 12px; margin-bottom: 14px; font-size: 13px; color: #666; }
-.feature-icon { width: 20px; height: 20px; background: #FF9500; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; flex-shrink: 0; }
-.footer { background: white; padding: 32px 16px; text-align: center; border-top: 1px solid #e8e6e1; margin-top: 40px; }
-.adjustment-hint { font-size: 11px; color: #FF9500; margin-top: 6px; padding: 8px; background: rgba(255, 149, 0, 0.08); border-radius: 8px; border-left: 3px solid #FF9500; }
-</style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimateur Or - Happy Cash Épinay</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .page { background: #fafaf8; min-height: 100vh; }
+        .header { background: white; border-bottom: 1px solid #e8e6e1; padding: 16px; position: sticky; top: 0; z-index: 20; }
+        .header-content { max-width: 500px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo-container { display: flex; align-items: center; gap: 10px; }
+        .logo-svg { width: 32px; height: 32px; flex-shrink: 0; }
+        .logo-text { display: flex; flex-direction: column; }
+        .logo-main { font-size: 18px; font-weight: 800; color: #003D7A; line-height: 1; letter-spacing: -0.3px; }
+        .logo-badge { font-size: 9px; color: #FF9500; letter-spacing: 1.2px; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+        .course-mini { text-align: right; font-size: 11px; }
+        .course-mini-label { color: #999; display: block; margin-bottom: 2px; }
+        .course-mini-value { font-size: 16px; font-weight: 700; color: #FF9500; }
+        .hero { background: linear-gradient(135deg, #003D7A 0%, #00254a 100%); padding: 60px 16px 40px; text-align: center; color: white; }
+        .hero-content { max-width: 500px; margin: 0 auto; }
+        .hero-badge { display: inline-block; background: rgba(255, 149, 0, 0.15); border: 1px solid rgba(255, 149, 0, 0.3); color: rgba(255, 213, 0, 0.9); padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 16px; }
+        .hero h1 { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .hero p { font-size: 15px; opacity: 0.9; font-weight: 300; letter-spacing: 0.2px; }
+        .container { max-width: 480px; margin: 0 auto; padding: 28px 16px; }
+        .card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 20px; border: 1px solid #e8e6e1; }
+        .card-title { font-size: 16px; font-weight: 700; color: #003D7A; margin-bottom: 24px; letter-spacing: -0.3px; }
+        .form-group { margin-bottom: 28px; }
+        .form-label { display: block; font-size: 13px; font-weight: 700; color: #333; margin-bottom: 12px; letter-spacing: 0.3px; text-transform: uppercase; }
+        .carat-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .carat-btn { padding: 16px; border: 2px solid #ddd; background: white; border-radius: 12px; cursor: pointer; font-size: 15px; font-weight: 700; color: #666; transition: all 0.3s ease; text-align: center; }
+        .carat-btn:hover { border-color: #FF9500; color: #FF9500; background: #fffbf7; }
+        .carat-btn.active { background: #FF9500; border-color: #FF9500; color: white; box-shadow: 0 4px 12px rgba(255, 149, 0, 0.2); }
+        .checkbox-group { display: grid; gap: 10px; }
+        .checkbox-item { display: flex; gap: 12px; padding: 14px; background: #f8f7f5; border-radius: 12px; cursor: pointer; transition: background 0.2s; }
+        .checkbox-item:hover { background: #f0ebe5; }
+        .checkbox-item input[type="checkbox"] { margin-top: 2px; width: 18px; height: 18px; cursor: pointer; accent-color: #FF9500; flex-shrink: 0; }
+        .checkbox-text { cursor: pointer; flex: 1; }
+        .checkbox-text-main { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 3px; }
+        .checkbox-text-sub { font-size: 12px; color: #999; }
+        .state-buttons { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .state-btn { padding: 14px; border: 2px solid #ddd; background: white; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 600; color: #666; transition: all 0.3s ease; text-align: center; line-height: 1.3; }
+        .state-btn:hover { border-color: #FF9500; color: #FF9500; background: #fffbf7; }
+        .state-btn.active { background: #FF9500; border-color: #FF9500; color: white; box-shadow: 0 4px 12px rgba(255, 149, 0, 0.2); }
+        .state-btn-label { display: block; font-size: 13px; font-weight: 700; }
+        .state-btn-hint { font-size: 10px; opacity: 0.8; margin-top: 2px; }
+        .input-weight-group { display: grid; grid-template-columns: 1fr 90px; gap: 10px; }
+        input[type="number"], select { padding: 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; font-family: inherit; transition: all 0.2s; width: 100%; }
+        input[type="number"]:focus, select:focus { outline: none; border-color: #FF9500; box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.08); }
+        .result-card { background: linear-gradient(135deg, #FF9500 0%, #E68600 100%); border-radius: 16px; padding: 28px; margin-bottom: 20px; text-align: center; color: white; border: none; display: none; }
+        .result-card.show { display: block; animation: slideUp 0.4s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .result-label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; opacity: 0.95; margin-bottom: 8px; }
+        .result-price { font-size: 52px; font-weight: 800; margin: 12px 0; line-height: 1; letter-spacing: -1px; }
+        .result-desc { font-size: 13px; opacity: 0.95; margin-bottom: 12px; line-height: 1.5; }
+        .result-note { font-size: 11px; opacity: 0.85; border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 12px; margin-top: 12px; }
+        .cta-button { display: block; width: 100%; padding: 16px; background: #FF9500; color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: all 0.2s; letter-spacing: 0.3px; text-transform: uppercase; }
+        .cta-button:hover { background: #E68600; transform: translateY(-2px); }
+        .secondary-button { display: block; width: 100%; padding: 14px; background: white; color: #003D7A; border: 2px solid #003D7A; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; transition: all 0.2s; }
+        .features { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; border: 1px solid #e8e6e1; }
+        .features-title { font-size: 14px; font-weight: 700; color: #003D7A; margin-bottom: 18px; text-transform: uppercase; }
+        .feature-item { display: flex; gap: 12px; margin-bottom: 14px; font-size: 13px; color: #666; line-height: 1.5; }
+        .feature-icon { flex-shrink: 0; width: 20px; height: 20px; background: #FF9500; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 800; margin-top: 2px; }
+        .process { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; border: 1px solid #e8e6e1; }
+        .process-title { font-size: 14px; font-weight: 700; color: #003D7A; margin-bottom: 18px; text-transform: uppercase; }
+        .steps { display: grid; gap: 12px; }
+        .step { display: flex; gap: 12px; }
+        .step-num { flex-shrink: 0; width: 28px; height: 28px; background: #003D7A; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+        .step-text { font-size: 13px; color: #666; line-height: 1.5; padding-top: 3px; }
+        .footer { background: white; padding: 32px 16px; text-align: center; border-top: 1px solid #e8e6e1; margin-top: 40px; }
+        .adjustment-hint { font-size: 11px; color: #FF9500; margin-top: 6px; padding: 8px; background: rgba(255, 149, 0, 0.08); border-radius: 8px; border-left: 3px solid #FF9500; padding-left: 10px; }
+    </style>
+</head>
+<body>
 
 <div class="page">
-  <div class="header">
-    <div class="header-content">
-      <div class="logo-container">
-        <svg class="logo-svg" viewBox="0 0 40 40">
-          <rect width="40" height="40" rx="8" fill="#FF9500"/>
-          <rect x="2" y="2" width="36" height="36" rx="6" fill="white"/>
-          <text x="20" y="28" font-size="18" font-weight="800" text-anchor="middle" fill="#FF9500">HC</text>
-        </svg>
-        <div class="logo-text">
-          <div class="logo-main">Happy Cash</div>
-          <div class="logo-badge">Épinay-sur-Seine</div>
-        </div>
-      </div>
-      <div class="course-mini">
-        <div class="course-mini-label">Cours OR (24K)</div>
-        <div class="course-mini-value" id="headerPrice">--€</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">Estimation gratuite et sans engagement</div>
-      <h1>Estimez votre or</h1>
-      <p>Découvrez sa valeur en quelques secondes</p>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="card">
-      <div class="card-title">Votre estimation</div>
-      
-      <div class="form-group">
-        <label class="form-label">Caratage de l'or</label>
-        <div class="carat-buttons">
-          <button class="carat-btn active" data-carat="18" onclick="selectCarat(18, this)">18K</button>
-          <button class="carat-btn" data-carat="22" onclick="selectCarat(22, this)">22K</button>
-          <button class="carat-btn" data-carat="9" onclick="selectCarat(9, this)">9K</button>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">État de votre or</label>
-        <div class="checkbox-group">
-          <label class="checkbox-item">
-            <input type="checkbox" id="poincon" checked onchange="updateEstimation()">
-            <div class="checkbox-text">
-              <div class="checkbox-text-main">Or poinçonné</div>
-              <div class="checkbox-text-sub">Garantie de pureté</div>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <svg class="logo-svg" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="8" fill="#FF9500"/>
+                    <rect x="2" y="2" width="36" height="36" rx="6" fill="white"/>
+                    <text x="20" y="28" font-size="18" font-weight="800" font-family="Arial, sans-serif" text-anchor="middle" fill="#FF9500" letter-spacing="-1">HC</text>
+                </svg>
+                <div class="logo-text">
+                    <div class="logo-main">Happy Cash</div>
+                    <div class="logo-badge">Épinay-sur-Seine</div>
+                </div>
             </div>
-          </label>
+            <div class="course-mini">
+                <div class="course-mini-label">Cours OR (24K)</div>
+                <div class="course-mini-value" id="headerPrice">...€</div>
+            </div>
         </div>
-
-        <div style="margin-top: 14px;">
-          <label class="form-label">Condition physique</label>
-          <div class="state-buttons">
-            <button class="state-btn active" onclick="selectState(0, this)">
-              <span class="state-btn-label">Intact</span>
-              <span class="state-btn-hint">Neuf/Bon état</span>
-            </button>
-            <button class="state-btn" onclick="selectState(-2, this)">
-              <span class="state-btn-label">Léger</span>
-              <span class="state-btn-hint">Petits défauts</span>
-            </button>
-            <button class="state-btn" onclick="selectState(-3, this)">
-              <span class="state-btn-label">Endommagé</span>
-              <span class="state-btn-hint">Cassé / Plié</span>
-            </button>
-            <button class="state-btn" onclick="selectState(-5, this)">
-              <span class="state-btn-label">Très abîmé</span>
-              <span class="state-btn-hint">Refonte</span>
-            </button>
-          </div>
-        </div>
-
-        <label class="checkbox-item" style="margin-top: 14px;">
-          <input type="checkbox" id="stones" onchange="updateEstimation()">
-          <div class="checkbox-text">
-            <div class="checkbox-text-main">Présence de pierres</div>
-            <div class="checkbox-text-sub">À déduire du poids d'or</div>
-          </div>
-        </label>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Poids total</label>
-        <div class="input-weight-group">
-          <input type="number" id="weight" placeholder="0.0" min="0" step="0.1" oninput="updateEstimation()">
-          <select id="unit" onchange="updateEstimation()">
-            <option value="g">Grammes</option>
-            <option value="dg">Décigrammes</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="adjustment-hint" id="adjustmentHint" style="display: none;">
-        Ajustements : <span id="adjustmentText"></span>
-      </div>
     </div>
 
-    <div class="result-card" id="resultCard">
-      <div class="result-label">Estimation de rachat</div>
-      <div class="result-price" id="resultPrice">0€</div>
-      <div class="result-desc" id="resultDesc">Pour votre or</div>
-      <div class="result-note" style="font-size: 10px; opacity: 0.8; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px;">Estimation indicative basée sur le cours actuel.</div>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Estimation gratuite et sans engagement</div>
+            <h1>Estimez votre or</h1>
+            <p>Découvrez sa valeur en quelques secondes</p>
+        </div>
     </div>
 
-    <button class="cta-button" onclick="goToShop()">Venir en magasin</button>
-    <a href="tel:+33159301511" class="secondary-button">Appeler le magasin</a>
-  </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-title">Votre estimation</div>
+            
+            <div class="form-group">
+                <label class="form-label">Caratage de l'or</label>
+                <div class="carat-buttons">
+                    <button class="carat-btn active" data-carat="18" onclick="selectCarat(18, this)">18K</button>
+                    <button class="carat-btn" data-carat="22" onclick="selectCarat(22, this)">22K</button>
+                    <button class="carat-btn" data-carat="9" onclick="selectCarat(9, this)">9K</button>
+                </div>
+            </div>
 
-  <div class="footer">
-    <div class="logo-main" style="margin-bottom: 10px;">Happy Cash Épinay</div>
-    <div style="font-size: 13px; color: #666; line-height: 1.6;">
-      Centre Commercial E.Leclerc L'Ilot<br>
-      93800 Épinay-sur-Seine<br>
-      Ouvert de 10h à 19h30
+            <div class="form-group">
+                <label class="form-label">État de votre or</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="poincon" checked onchange="updateEstimation()">
+                        <div class="checkbox-text">
+                            <div class="checkbox-text-main">Or poinçonné</div>
+                            <div class="checkbox-text-sub">Estampage garantissant la pureté</div>
+                        </div>
+                    </label>
+                </div>
+                
+                <div style="margin-top: 14px;">
+                    <label class="form-label" style="margin-bottom: 10px;">Condition physique</label>
+                    <div class="state-buttons">
+                        <button class="state-btn active" data-state="0" onclick="selectState(0, this)">
+                            <span class="state-btn-label">Intact</span>
+                            <span class="state-btn-hint">Pas de dommage</span>
+                        </button>
+                        <button class="state-btn" data-state="-2" onclick="selectState(-2, this)">
+                            <span class="state-btn-label">Léger</span>
+                            <span class="state-btn-hint">Petits défauts</span>
+                        </button>
+                        <button class="state-btn" data-state="-3" onclick="selectState(-3, this)">
+                            <span class="state-btn-label">Endommagé</span>
+                            <span class="state-btn-hint">Cassé ou plié</span>
+                        </button>
+                        <button class="state-btn" data-state="-5" onclick="selectState(-5, this)">
+                            <span class="state-btn-label">Très abîmé</span>
+                            <span class="state-btn-hint">Refonte nécessaire</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <label class="checkbox-item" style="margin-top: 14px;">
+                    <input type="checkbox" id="stones" onchange="updateEstimation()">
+                    <div class="checkbox-text">
+                        <div class="checkbox-text-main">Contient des pierres précieuses</div>
+                        <div class="checkbox-text-sub">Diamants, rubis, saphirs...</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Poids</label>
+                <div class="input-weight-group">
+                    <input type="number" id="weight" placeholder="Ex: 5.2" min="0" step="0.1" oninput="updateEstimation()">
+                    <select id="unit" onchange="updateEstimation()">
+                        <option value="g">Grammes</option>
+                        <option value="dg">Décigrammes</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="adjustment-hint" id="adjustmentHint" style="display: none;">
+                Ajustements appliqués : <span id="adjustmentText"></span>
+            </div>
+        </div>
+
+        <div class="result-card" id="resultCard">
+            <div class="result-label">Estimation de rachat</div>
+            <div class="result-price" id="resultPrice">0€</div>
+            <div class="result-desc" id="resultDesc">Pour votre or</div>
+            <div class="result-note">Estimation non-contractuelle • À confirmer en magasin</div>
+        </div>
+
+        <button class="cta-button" onclick="goToShop()">Venir en magasin</button>
+        <a href="tel:+33159301511" class="secondary-button">Appeler le magasin</a>
+        
+        <div class="features" style="margin-top: 20px;">
+            <div class="features-title">Pourquoi Happy Cash ?</div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>Estimation gratuite sans engagement</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div>Paiement immédiat et sécurisé</div>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div class="footer">
+        <div class="footer-title">Happy Cash Épinay-sur-Seine</div>
+        <div style="font-size: 13px; color: #666; margin-bottom: 15px;">Centre Commercial E.Leclerc L'Ilot</div>
+        <a href="https://share.google/W2dojqoBqSOGWY0m9" target="_blank" class="cta-button" style="display: inline-block; width: auto; padding: 12px 24px;">Voir la localisation</a>
+    </div>
 </div>
 
 <script>
-let goldPrice24k = 78.50; // Valeur par défaut réaliste
+// --- CONFIGURATION ---
+let goldPrice24k = 78.50; // Valeur de repli au cas où l'API échoue
 let selectedCarat = 18;
 let selectedState = 0;
 
+// --- RECUPERATION DU COURS EN DIRECT ---
 async function fetchGoldPrice() {
     try {
-        // Utilisation d'une API de secours si metals.live échoue
-        const response = await fetch('https://api.metals.live/v1/spot/gold');
-        const data = await response.json();
+        // 1. Récupération du prix de l'or en USD/Once
+        const goldRes = await fetch('https://api.metals.live/v1/spot/gold');
+        const goldData = await goldRes.json();
+        
+        // 2. Récupération du taux de change USD vers EUR
+        const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
+        const rateData = await rateRes.json();
         
         let priceUSD = 0;
-        if (Array.isArray(data) && data[0] && data[0].gold) {
-            priceUSD = data[0].gold;
-        } else if (data && data.gold) {
-            priceUSD = data.gold;
+        if (Array.isArray(goldData)) {
+            priceUSD = goldData[0].gold;
+        } else {
+            priceUSD = goldData.gold;
         }
 
-        if (priceUSD > 0) {
-            const eurUSD = 1.08; // Taux de change estimé
-            const priceEUR = priceUSD / eurUSD;
-            goldPrice24k = priceEUR / 31.1035; // Prix du gramme 24K
-            
+        const eurUsdRate = rateData.rates.EUR; 
+
+        if (priceUSD > 0 && eurUsdRate > 0) {
+            // Calcul : (Prix USD / 31.1035) * Taux EUR
+            goldPrice24k = (priceUSD / 31.1035) * eurUsdRate;
             document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
-            updateEstimation();
+            updateEstimation(); // On relance le calcul si l'utilisateur a déjà saisi un poids
         }
     } catch (error) {
-        console.error("Erreur API, conservation du prix par défaut");
+        console.error("Erreur API :", error);
         document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
     }
 }
 
+// --- LOGIQUE INTERACTIVE ---
 function selectCarat(carat, element) {
     selectedCarat = carat;
     document.querySelectorAll('.carat-btn').forEach(btn => btn.classList.remove('active'));
@@ -218,13 +259,13 @@ function selectState(state, element) {
 }
 
 function updateEstimation() {
-    const weightInput = document.getElementById('weight').value;
-    const weight = parseFloat(weightInput) || 0;
+    const weightVal = parseFloat(document.getElementById('weight').value) || 0;
     const unit = document.getElementById('unit').value;
     const isPoincon = document.getElementById('poincon').checked;
     const hasStones = document.getElementById('stones').checked;
     
-    let weightGrams = unit === 'g' ? weight : weight * 0.1;
+    // Conversion en grammes
+    let weightGrams = unit === 'g' ? weightVal : weightVal * 0.1;
     
     if (weightGrams <= 0) {
         document.getElementById('resultCard').classList.remove('show');
@@ -232,82 +273,55 @@ function updateEstimation() {
         return;
     }
 
-    // CALCUL DYNAMIQUE BASÉ SUR LE COURS LIVE
-   // On définit des valeurs par défaut au cas où les API mettraient du temps à répondre
-let goldPrice24k = 72.50; 
-let selectedCarat = 18;
-let selectedState = 0;
-
-async function fetchGoldPrice() {
-    try {
-        // 1. On récupère le cours de l'or (en USD par once)
-        const goldRes = await fetch('https://api.metals.live/v1/spot/gold');
-        const goldData = await goldRes.json();
-        
-        // 2. On récupère le taux de change réel EUR/USD
-        const rateRes = await fetch('https://open.er-api.com/v6/latest/USD');
-        const rateData = await rateRes.json();
-        
-        let priceUSD = 0;
-        if (Array.isArray(goldData)) {
-            priceUSD = goldData[0].gold;
-        } else {
-            priceUSD = goldData.gold;
-        }
-
-        const eurUsdRate = rateData.rates.EUR; // Taux de change actuel (ex: 0.92)
-
-        if (priceUSD > 0 && eurUsdRate > 0) {
-            // Conversion : (Prix USD / 31.1035) * Taux EUR
-            // Exemple : (2300$ / 31.1035) * 0.92 = 68.03€ le gramme pur
-            goldPrice24k = (priceUSD / 31.1035) * eurUsdRate;
-            
-            document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
-            updateEstimation();
-        }
-    } catch (error) {
-        console.error("Erreur de mise à jour du cours :", error);
-        // On laisse la valeur par défaut ou la dernière valeur connue
-        document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€/g';
-    }
-}
-
-// Les fonctions selectCarat, selectState et updateEstimation restent identiques 
-// mais vérifiez bien la formule dans updateEstimation :
-function updateEstimation() {
-    const weight = parseFloat(document.getElementById('weight').value) || 0;
-    const unit = document.getElementById('unit').value;
-    const isPoincon = document.getElementById('poincon').checked;
-    const hasStones = document.getElementById('stones').checked;
+    // 1. Valeur intrinsèque (Prix du gramme pur * pureté)
+    const puretyFactor = selectedCarat / 24;
+    const baseGramValue = goldPrice24k * puretyFactor;
     
-    let weightGrams = unit === 'g' ? weight : weight * 0.1;
-    
-    if (weightGrams <= 0) {
-        document.getElementById('resultCard').classList.remove('show');
-        return;
-    }
-
-    // PRIX DU GRAMME SELON LE CARATAGE (Basé sur le 24K live)
-    const currentGramValue = goldPrice24k * (selectedCarat / 24);
-    
-    // MARGE MAGASIN (21.9% si poinçon, 25% sinon)
+    // 2. Marge Happy Cash (21.9% si poinçon, 25% sans poinçon)
     const margin = isPoincon ? 0.219 : 0.25; 
     
+    // 3. Ajustements (État et Pierres)
     let totalAdjustmentPercent = 0;
-    if (selectedState !== 0) totalAdjustmentPercent += selectedState;
-    if (hasStones) totalAdjustmentPercent -= 5; // Marge de sécurité pierres
+    let adjustments = [];
+
+    if (selectedState !== 0) {
+        totalAdjustmentPercent += selectedState;
+        adjustments.push("État");
+    }
+    
+    if (hasStones) {
+        totalAdjustmentPercent -= 5; // On retire 5% pour le poids estimé des pierres
+        adjustments.push("Déduction pierres");
+    }
 
     const adjustmentMultiplier = 1 + (totalAdjustmentPercent / 100);
     
-    // FORMULE FINALE
-    const finalPrice = currentGramValue * weightGrams * (1 - margin) * adjustmentMultiplier;
+    // FORMULE FINALE : Valeur * (1 - marge) * Ajustements
+    const finalPrice = baseGramValue * weightGrams * (1 - margin) * adjustmentMultiplier;
 
+    // Affichage des résultats
     document.getElementById('resultPrice').textContent = finalPrice.toFixed(2) + '€';
-    document.getElementById('resultDesc').textContent = `${weightGrams.toFixed(2)}g d'or ${selectedCarat}K ${isPoincon ? 'poinçonné' : ''}`;
+    document.getElementById('resultDesc').textContent = `${weightGrams.toFixed(2)}g d'or ${selectedCarat}K ${isPoincon ? 'poinçonné' : 'non poinçonné'}`;
+    
+    if (adjustments.length > 0) {
+        document.getElementById('adjustmentText').textContent = adjustments.join(', ');
+        document.getElementById('adjustmentHint').style.display = 'block';
+    } else {
+        document.getElementById('adjustmentHint').style.display = 'none';
+    }
+    
     document.getElementById('resultCard').classList.add('show');
 }
 
-// Initialisation
+function goToShop() {
+    window.open('https://share.google/W2dojqoBqSOGWY0m9', '_blank');
+}
+
+// --- INITIALISATION ---
 fetchGoldPrice();
-setInterval(fetchGoldPrice, 300000); // Mise à jour toutes les 5 minutes
+setInterval(fetchGoldPrice, 300000); // Mise à jour automatique toutes les 5 minutes
+
 </script>
+
+</body>
+</html>
