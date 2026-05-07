@@ -253,26 +253,41 @@ function updateEstimation() {
 
 // --- MISE À JOUR LIVE DU COURS DE L'OR ---
 async function fetchLivePrice() {
+    // Tentative 1 : goldprice.org (CORS activé, prix XAU directement en EUR)
     try {
-        // API Fawaz Ahmed via jsDelivr CDN : CORS natif, prix XAU directement en EUR
-        // 1 XAU = 1 once troy d'or (31.1035g)
-        const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/xau.json');
-        if (!res.ok) throw new Error('API indisponible');
+        const res = await fetch('https://data-asg.goldprice.org/dbXRates/EUR');
+        if (!res.ok) throw new Error('goldprice.org indisponible');
         const data = await res.json();
-
-        const onceEUR = data?.xau?.eur;
+        const onceEUR = data?.items?.[0]?.xauPrice;
         if (!onceEUR || onceEUR <= 0) throw new Error('Valeur invalide');
-
-        // Conversion once troy -> gramme
-        const newPrice = onceEUR / 31.1035;
-
-        if (newPrice > 50) {
-            goldPrice24k = newPrice;
-            document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€';
-            updateEstimation();
-        }
+        applyPrice(onceEUR / 31.1035);
+        return;
     } catch (e) {
-        console.log('Cours en direct indisponible, cours de repli utilisé :', goldPrice24k.toFixed(2) + '€', '—', e.message);
+        console.log('Source 1 échouée :', e.message);
+    }
+
+    // Tentative 2 : CoinGecko — PAXG = 1 once troy d'or tokenisé (≈ cours spot)
+    try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=pax-gold&vs_currencies=eur');
+        if (!res.ok) throw new Error('CoinGecko indisponible');
+        const data = await res.json();
+        const onceEUR = data?.['pax-gold']?.eur;
+        if (!onceEUR || onceEUR <= 0) throw new Error('Valeur invalide');
+        applyPrice(onceEUR / 31.1035);
+        return;
+    } catch (e) {
+        console.log('Source 2 échouée :', e.message);
+    }
+
+    console.log('Toutes les sources ont échoué, cours de repli utilisé :', goldPrice24k.toFixed(2) + '€');
+}
+
+function applyPrice(pricePerGram) {
+    if (pricePerGram > 50) {
+        goldPrice24k = pricePerGram;
+        document.getElementById('headerPrice').textContent = goldPrice24k.toFixed(2) + '€';
+        updateEstimation();
+        console.log('Cours mis à jour :', goldPrice24k.toFixed(2) + '€/g');
     }
 }
 
